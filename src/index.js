@@ -4,6 +4,9 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import morgan from 'morgan';
 import route from './routes/index.js';
+import * as db from './config/db/index.js';
+
+db.connect();
 
 const app = express();
 const port = 3000;
@@ -22,12 +25,12 @@ app.use(express.json());
 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views', path.join(__dirname, 'resources', 'views'));
 
 app.use(morgan('combined'));
 
 route(app);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`App listening at http://localhost:${port}`);
 });
